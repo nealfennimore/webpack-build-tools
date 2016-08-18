@@ -4,7 +4,9 @@
   "description": "Personal build tools",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline"
+    "start": "webpack-dev-server --hot --inline",
+    "prebuild": "npm install",
+    "build": "webpack --config ./webpack.config.js -p --progress"
   },
   "repository": {
     "type": "git",
