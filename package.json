@@ -4,7 +4,7 @@
   "description": "Personal build tools",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline",
+    "start": "NODE_ENV=development webpack-dev-server --hot --inline",
     "prebuild": "npm install",
     "build": "webpack --config ./webpack.config.js -p --progress"
   },
@@ -28,6 +28,7 @@
     "css-loader": "^0.23.1",
     "eslint-config-nfen": "0.0.7",
     "eslint-plugin-react": "^5.1.1",
+    "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
     "image-webpack-loader": "^1.8.0",
     "node-sass": "^3.7.0",
@@ -42,6 +43,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "lodash": "^4.15.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0"
   }

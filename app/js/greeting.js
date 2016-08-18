@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from '../scss/main';
+import styles from 'styles/main';
 
 export default class Greeting extends Component {
     render() {
