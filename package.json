@@ -4,7 +4,7 @@
   "description": "Personal build tools",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --hot --inline",
+    "start": "NODE_ENV=development webpack-dev-server --hot --inline --content-base ./dev",
     "prebuild": "npm install",
     "build": "webpack --config ./webpack.config.js -p --progress"
   },

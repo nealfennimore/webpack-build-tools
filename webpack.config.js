@@ -1,22 +1,17 @@
 const webpack           = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const path              = require('path');
 const autoprefixer      = require('autoprefixer');
 const merge             = require('lodash/merge');
 
-const ROOT = path.resolve(__dirname, 'app');
-const DIST = path.resolve(__dirname, 'dist');
+const config = require('./config');
 
 const isDev = process.env.NODE_ENV === 'development';
 
-const VENDOR_FILES = /vendor(Styles)?\.(scss|css|js)$/;
-const VENDOR_SCSS  = /vendorStyles\.scss$/;
-
-var config =  {
-    context: ROOT,
+var webpackConfig =  {
+    context: config.paths.ROOT,
 
     resolve: {
-        root: ROOT,
+        root: config.paths.ROOT,
         alias: {
             styles: 'scss',
             scss: 'scss',
@@ -40,7 +35,7 @@ var config =  {
     output: {
         filename: '[name].js',
         chunkFilename: '[id].js',
-        path: DIST
+        path: config.paths.PUBLIC
     },
 
     plugins: [
@@ -54,7 +49,7 @@ var config =  {
         new webpack.SourceMapDevToolPlugin({
             filename: '[file].map',
             exclude: [
-                VENDOR_FILES,
+                config.regex.VENDOR_FILES,
                 /html\.js$/,
                 /styles\.js$/
             ]
@@ -80,7 +75,7 @@ var config =  {
             // App styles with CSS locals
             {
                 test: /\.scss$/,
-                excludes: VENDOR_SCSS,
+                excludes: config.regex.VENDOR_SCSS,
                 loader: ExtractTextPlugin.extract('style', [
                     'css?modules&importLoaders=1&sourceMap&localIdentName=[path][name]-[local]_[hash:base64:5]',
                     'postcss',
@@ -91,7 +86,7 @@ var config =  {
 
             // Vendor styles
             {
-                test: VENDOR_SCSS,
+                test: config.regex.VENDOR_SCSS,
                 loader: ExtractTextPlugin.extract('style', [
                     'css',
                     'postcss',
@@ -137,15 +132,15 @@ var config =  {
 if(isDev){
     // Merge in dev settings if exists
     try {
-        var devConfig = require('./webpack.config.development.js');
-        config = merge({}, config, {module: {loaders: null}},  devConfig);
+        var devWebpackConfig = require('./webpack.config.development.js');
+        webpackConfig = merge({}, webpackConfig, {module: {loaders: null}},  devWebpackConfig);
     } catch(e){
-        console.error('No webpack development config. Loading defaults.')
+        console.error('Error loading webpack development config. Loading defaults.', e)
     }
 
 } else {
     // Put in production to generate react production mode
-    config.plugins.push(
+    webpackConfig.plugins.push(
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify('production')
@@ -154,4 +149,4 @@ if(isDev){
     );
 }
 
-module.exports = config;
+module.exports = webpackConfig;

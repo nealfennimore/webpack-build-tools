@@ -1,6 +1,8 @@
+const config = require('./config');
+
 module.exports = {
     output: {
-        publicPath: 'http://localhost:8080',
+        path: config.paths.DEV,
         pathinfo: true
     },
     devtool: 'eval',
@@ -24,7 +26,7 @@ module.exports = {
             // CSS Locals
             {
                 test: /\.scss$/,
-                excludes: VENDOR_FILES,
+                excludes: config.regex.VENDOR_SCSS,
                 loaders: [
                     'style',
                     'css?modules&importLoaders=1&sourceMap&localIdentName=[path][name]-[local]_[hash:base64:5]',
@@ -36,7 +38,7 @@ module.exports = {
 
             // CSS Globals
             {
-                test: VENDOR_FILES,
+                test: config.regex.VENDOR_SCSS,
                 loaders: [
                     'style',
                     'css',
