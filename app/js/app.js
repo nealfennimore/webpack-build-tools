@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import Greeting from '../greeting';
+import Greeting from './greeting';
 
-export default class Layout extends Component {
+export default class App extends Component {
     constructor(props) {
         super(props);
     }
@@ -14,6 +14,6 @@ export default class Layout extends Component {
     }
 }
 
-Layout.propTypes = {
+App.propTypes = {
 
 };

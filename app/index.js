@@ -1,21 +1,20 @@
 require('react-hot-loader/patch');
-
 import React from 'react';
 import { render } from 'react-dom';
-import Layout from 'scripts/containers/layout';
 import { AppContainer } from 'react-hot-loader'
+import App from 'scripts/app';
 
 render(
     <AppContainer>
-        <Layout />
+        <App />
     </AppContainer>,
     document.getElementById('app')
 );
 
 // Hot Module Replacement API
 if (module.hot) {
-    module.hot.accept('./js/containers/layout', () => {
-        const NextApp = require('./js/containers/layout').default;
+    module.hot.accept('./js/app', () => {
+        const NextApp = require('./js/app').default;
         render(
             <AppContainer>
                 <NextApp/>

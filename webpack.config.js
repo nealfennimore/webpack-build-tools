@@ -21,7 +21,7 @@ var webpackConfig =  {
     },
 
     entry: {
-        app: ['./app'],
+        app: ['./index'],
 
         vendor: [
             'react',
